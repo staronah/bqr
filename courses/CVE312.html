@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Complete the Link</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <style>
+    #mainLinkInput {
+      visibility: hidden;
+      position: absolute;
+    }
+
+    #qrCode {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Complete the Link</h1>
+  <p>Enter the main part of the site URL below and any additional parameters in the second field. Click the "Generate QR Code" button to create a QR code.</p>
+  <form id="linkForm">
+    <label for="mainLinkInput">Main Part of the Site URL:</label>
+    <input type="text" id="mainLinkInput" name="mainLink" value="https://docs.google.com/forms/d/e/1FAIpQLScUAiJ2byELqU8OTbj1-XL3PzeSWMlKPHDv3trF2MBpa4BXPA/formResponse?entry.1795785412=" required>
+    <br>                                                         
+    <label for="additionalParamsInput">Additional Parameters:</label>
+    <input type="text" id="additionalParamsInput" name="additionalParams" placeholder="e.g., ?param1=value1&param2=value2">
+    <br>
+    <button type="submit">Generate QR Code</button>
+  </form>
+  <br>
+  <canvas id="qrCode"></canvas>
+
+  <script>
+    document.getElementById("linkForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const mainLink = document.getElementById("mainLinkInput").value.trim();
+      const additionalParams = document.getElementById("additionalParamsInput").value.trim();
+      const fullLink = mainLink + additionalParams;
+      
+      if (mainLink.length > 0) {
+        const qrCodeCanvas = document.getElementById("qrCode");
+        qrCodeCanvas.style.display = "block";
+        const qr = new QRious({
+          element: qrCodeCanvas,
+          value: fullLink,
+          size: 200
+        });
+      } else {
+        alert("Please enter a valid main part of the site URL.");
+      }
+    });
+  </script>
+</body>
+</html>
+
